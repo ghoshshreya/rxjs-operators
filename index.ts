@@ -1,9 +1,13 @@
-import './style.css';
+import { from, map, of, tap } from 'rxjs';
 
-import { of, map } from 'rxjs';
+let values = ['Penny', 'Bernadette', 'Amy'];
 
-of('World')
-  .pipe(map((name) => `Hello, ${name}!`))
-  .subscribe(console.log);
+let obs = from(values);
+obs.pipe(
+  tap((x) => {
+    console.log('Current Value', x);
+    return 'Updated - ' + x;
+  })
+);
 
-// Open the console in the bottom right to see results.
+obs.subscribe((x) => console.log(x));
